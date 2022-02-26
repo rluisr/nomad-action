@@ -1,5 +1,7 @@
+---
 name: Nomad client only
 description: Hashicorp Nomad download specific version binary to $PATH
+
 inputs:
   token:
     description: Token used to authenticate with a Nomad server
@@ -16,23 +18,27 @@ inputs:
     default: latest
 
 runs:
-  using: composite
+  using: "composite"
   steps:
     - name: Download specific version Nomad binary
       if: ${{ inputs.version != 'latest' }}
       run: |
           sudo apt-get install wget unzip -y
           wget https://releases.hashicorp.com/nomad/${{ inputs.version }}/nomad_${{ inputs.version }}_linux_amd64.zip -O /tmp/nomad.zip
-          unzip /tmp/nomad.zip -d /usr/bin
       shell: bash
 
     - name: Download latest version Nomad binary
-      if: ${{ inputs.version != 'latest' }}
+      if: ${{ inputs.version == 'latest' }}
       run: |
-          sudo apt-get install jq unzip -y
+          sudo apt-get install unzip -y
           LATEST_VERSION=$( curl -s https://api.github.com/repos/hashicorp/nomad/releases/latest | jq -r .tag_name | sed 's/v//' )
           wget https://releases.hashicorp.com/nomad/${LATEST_VERSION}/nomad_${LATEST_VERSION}_linux_amd64.zip -O /tmp/nomad.zip
-          unzip /tmp/nomad.zip -d /usr/bin
+      shell: bash
+
+    - name: Install Nomad binary
+      run: |
+        unzip /tmp/nomad.zip -d /usr/local/bin
+        chmod +x /usr/local/bin/nomad
       shell: bash
 
     - name: Set environment variables
@@ -40,6 +46,7 @@ runs:
         export NOMAD_TOKEN="${{ inputs.token }}"
         export NOMAD_HTTP_AUTH="${{ inputs.http_auth }}"
         export NOMAD_ADDR="${{ inputs.addr }}"
+      shell: bash
 
 branding:
   icon: 'upload-cloud'
