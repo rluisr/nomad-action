@@ -23,9 +23,6 @@ Params
 
 | Name      | Required | Description                                    |
 |-----------|----------|------------------------------------------------|
-| addr      | yes      | Address of the nomad server                    |
-| token     | no       | Token used to authenticate with a Nomad server |
-| http_auth | no       | Basic Authentication for a Nomad server        |
 | version   | no       | Nomad version. If empty, used latest version   |
 
 Locally test
