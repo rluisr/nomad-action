@@ -32,6 +32,13 @@ runs:
         chmod +x /usr/local/bin/nomad
       shell: bash
 
+    - name: Download nomad-pack
+      run: |
+        wget https://github.com/hashicorp/nomad-pack/releases/download/nightly/nomad-pack_0.0.1-techpreview3_linux_amd64.zip -O /tmp/nomad-pack.zip
+        unzip /tmp/nomad-pack.zip -d /usr/local/bin
+        chmod +x /usr/local/bin/nomad-pack
+      shell: bash
+
 branding:
   icon: 'upload-cloud'
   color: 'green'
