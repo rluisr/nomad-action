@@ -22,3 +22,4 @@ jobs:
       - name: Test installed
         run: |
           nomad version
+          nomad-pack version

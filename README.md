@@ -1,7 +1,7 @@
 nomad-actions
 =============
 
-Only install/setup Nomad client.
+Only install/setup Nomad client and nomad-pack.
 
 Usage
 -----
@@ -14,6 +14,7 @@ steps:
   - name: Deploy
     run: |
       nomad job run job.hcl
+      # or nomad-pack run .
     env:
       NOMAD_ADDR: "https://nomad.nomad"
       NOMAD_HTTP_AUTH: "basic:auth"
@@ -26,6 +27,11 @@ Params
 | Name      | Required | Description                                    |
 |-----------|----------|------------------------------------------------|
 | version   | no       | If empty, used latest version                  |
+
+**IMPORTANT NOTICE**
+
+`nomad-pack` is under the preview and we can not download specified version binary.  
+This actions now download `techpreviw-3`
 
 Locally test
 ------------
