@@ -21,7 +21,7 @@ runs:
     - name: Download latest version Nomad binary
       if: ${{ inputs.version == 'latest' }}
       run: |
-          sudo apt-get install unzip -y
+          sudo apt-get install unzip jq -y
           LATEST_VERSION=$( curl -s https://api.github.com/repos/hashicorp/nomad/releases/latest | jq -r .tag_name | sed 's/v//' )
           wget https://releases.hashicorp.com/nomad/${LATEST_VERSION}/nomad_${LATEST_VERSION}_linux_amd64.zip -O /tmp/nomad.zip
       shell: bash
