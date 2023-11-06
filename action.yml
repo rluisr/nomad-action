@@ -1,9 +1,8 @@
----
 name: Nomad CLI install only
 description: Hashicorp Nomad download specific version binary to $PATH
 
 inputs:
-  version:
+  nomad_version:
     description: Nomad version. If empty, used latest version
     required: false
     default: latest
@@ -12,14 +11,14 @@ runs:
   using: composite
   steps:
     - name: Download specific version Nomad binary
-      if: ${{ inputs.version != 'latest' }}
+      if: ${{ inputs.nomad_version != 'latest' }}
       run: |
           sudo apt-get install wget unzip -y
-          wget https://releases.hashicorp.com/nomad/${{ inputs.version }}/nomad_${{ inputs.version }}_linux_amd64.zip -O /tmp/nomad.zip
+          wget https://releases.hashicorp.com/nomad/${{ inputs.nomad_version }}/nomad_${{ inputs.nomad_version }}_linux_amd64.zip -O /tmp/nomad.zip
       shell: bash
 
     - name: Download latest version Nomad binary
-      if: ${{ inputs.version == 'latest' }}
+      if: ${{ inputs.nomad_version == 'latest' }}
       run: |
           sudo apt-get install unzip jq -y
           LATEST_VERSION=$( curl -s https://api.github.com/repos/hashicorp/nomad/releases/latest | jq -r .tag_name | sed 's/v//' )
@@ -34,7 +33,7 @@ runs:
 
     - name: Download nomad-pack
       run: |
-        wget https://github.com/hashicorp/nomad-pack/releases/download/nightly/nomad-pack_0.0.1-techpreview.4_linux_amd64.zip -O /tmp/nomad-pack.zip
+        wget https://github.com/hashicorp/nomad-pack/releases/download/nightly/nomad-pack_0.1.1-dev_linux_amd64.zip -O /tmp/nomad-pack.zip
         unzip /tmp/nomad-pack.zip -d /usr/local/bin
         chmod +x /usr/local/bin/nomad-pack
       shell: bash

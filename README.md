@@ -1,10 +1,8 @@
-nomad-actions
-=============
+# nomad-actions
 
 Only install/setup Nomad client and nomad-pack.
 
-Usage
------
+## Usage
 
 ```yml
 steps:
@@ -21,19 +19,17 @@ steps:
     # See about environment variables https://www.nomadproject.io/docs/commands
 ```
 
-Params
-------
+## Params
 
-| Name      | Required | Description                                    |
-|-----------|----------|------------------------------------------------|
-| version   | no       | If empty, used latest version                  |
+| Name          | Required | Description                   |
+| ------------- | -------- | ----------------------------- |
+| nomad_version | no       | If empty, used latest version |
 
 **IMPORTANT NOTICE**
 
 `nomad-pack` is under the preview and we can not download specified version binary.  
-This actions now download `techpreviw-3`
+This actions now download `0.1.1.dev`
 
-Locally test
-------------
+## Locally test
 
 `$ act`
