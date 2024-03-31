@@ -33,7 +33,7 @@ runs:
 
     - name: Download nomad-pack
       run: |
-        wget https://github.com/hashicorp/nomad-pack/releases/download/nightly/nomad-pack_0.1.1-dev_linux_amd64.zip -O /tmp/nomad-pack.zip
+        wget https://releases.hashicorp.com/nomad-pack/0.1.0/nomad-pack_0.1.0_linux_amd64.zip -O /tmp/nomad-pack.zip
         unzip /tmp/nomad-pack.zip -d /usr/local/bin
         chmod +x /usr/local/bin/nomad-pack
       shell: bash
