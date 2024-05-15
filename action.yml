@@ -13,31 +13,31 @@ runs:
     - name: Download specific version Nomad binary
       if: ${{ inputs.nomad_version != 'latest' }}
       run: |
-          sudo apt-get install wget unzip -y
-          wget https://releases.hashicorp.com/nomad/${{ inputs.nomad_version }}/nomad_${{ inputs.nomad_version }}_linux_amd64.zip -O /tmp/nomad.zip
+        sudo apt-get install wget unzip -y
+        wget https://releases.hashicorp.com/nomad/${{ inputs.nomad_version }}/nomad_${{ inputs.nomad_version }}_linux_amd64.zip -O /tmp/nomad.zip
       shell: bash
 
     - name: Download latest version Nomad binary
       if: ${{ inputs.nomad_version == 'latest' }}
       run: |
-          sudo apt-get install unzip jq -y
-          LATEST_VERSION=$( curl -s https://api.github.com/repos/hashicorp/nomad/releases/latest | jq -r .tag_name | sed 's/v//' )
-          wget https://releases.hashicorp.com/nomad/${LATEST_VERSION}/nomad_${LATEST_VERSION}_linux_amd64.zip -O /tmp/nomad.zip
+        sudo apt-get install unzip jq -y
+        LATEST_VERSION=$( curl -s https://api.github.com/repos/hashicorp/nomad/releases/latest | jq -r .tag_name | sed 's/v//' )
+        wget https://releases.hashicorp.com/nomad/${LATEST_VERSION}/nomad_${LATEST_VERSION}_linux_amd64.zip -O /tmp/nomad.zip
       shell: bash
 
     - name: Install Nomad binary
       run: |
-        unzip /tmp/nomad.zip -d /usr/local/bin
+        unzip -o -d /usr/local/bin /tmp/nomad.zip
         chmod +x /usr/local/bin/nomad
       shell: bash
 
     - name: Download nomad-pack
       run: |
         wget https://releases.hashicorp.com/nomad-pack/0.1.0/nomad-pack_0.1.0_linux_amd64.zip -O /tmp/nomad-pack.zip
-        unzip /tmp/nomad-pack.zip -d /usr/local/bin
+        unzip -o -d /usr/local/bin /tmp/nomad-pack.zip
         chmod +x /usr/local/bin/nomad-pack
       shell: bash
 
 branding:
-  icon: 'upload-cloud'
-  color: 'green'
+  icon: "upload-cloud"
+  color: "green"
